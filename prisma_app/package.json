@@ -1,0 +1,13 @@
+{
+  "name": "prisma-postgres-check",
+  "version": "1.0.0",
+  "description": "A simple Node.js app to check PostgreSQL connection with Prisma.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "prisma": "^5.14.0"
+  }
+}

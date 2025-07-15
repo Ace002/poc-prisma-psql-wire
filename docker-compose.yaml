@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # This service is your Go application acting as a PostgreSQL server
+  psql_wire_server:
+    build:
+      context: ./psql_wire_app
+    # You can expose the port to your host machine for debugging if needed
+    ports:
+      - "5432:5432"
+    environment:
+      - LISTENING_PORT=${LISTENING_PORT}
+      - EXPECTED_PASSWORD=${EXPECTED_PASSWORD}
+      - EXPECTED_USER=${EXPECTED_USER}
+    restart: always
+
+  # This is your Prisma application
+  prisma_app:
+    build:
+      context: ./prisma_app
+    depends_on:
+      - psql_wire_server
+    environment:
+      # This DATABASE_URL points to the Go service above
+      - DATABASE_URL=${DATABASE_URL}
+    restart: on-failure
